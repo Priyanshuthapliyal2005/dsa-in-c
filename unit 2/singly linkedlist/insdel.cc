@@ -24,7 +24,6 @@ int delete1() {
     } else {
         Node* temp = head;
         head = head->next;
-        temp->next = NULL;
         int x = temp->info;
         free(temp);
         return x;
@@ -40,34 +39,40 @@ void display() {
             printf("%d ", temp->info);
             temp = temp->next;
         }
+        printf("\n");
     }
 }
 
 int main() {
-    insert(10);
-    insert(20);
-    insert(30);
+    int ch, d, x;
 
-    int x;
+    while (1) {
+        printf("Enter the choice:\n");
+        printf("1: Insert\n2: Delete\n3: Display\n4: Exit\n");
+        scanf("%d", &ch);
 
-    if (head != NULL) {
-        x = delete1();
-        printf("\nDeleted element is: %d\n", x);
-        display();
-
-        x = delete1();
-        printf("\nDeleted element is: %d\n", x);
-        display();
-
-        x = delete1();
-        printf("\nDeleted element is: %d\n", x);
-        display();
-
-        x = delete1();
-        printf("\nDeleted element is: %d\n", x);
-        display();
-    } else {
-        printf("NOTHING TO DELETE\n");
+        switch (ch) {
+            case 1:
+                printf("Enter the value: ");
+                scanf("%d", &d);
+                insert(d);
+                break;
+            case 2:
+                if (head != NULL) {
+                    x = delete1();
+                    printf("Deleted element is: %d\n", x);
+                } else {
+                    printf("List is empty, nothing to delete\n");
+                }
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Invalid choice\n");
+        }
     }
 
     return 0;

@@ -8,57 +8,50 @@ struct Node {
 
 typedef struct Node Node;
 
-void insert(Node **f,Node **r,int v) {
-    Node *temp=NULL;
+void insert(Node** f, Node** r, int v) {
     Node* temp = (Node*)malloc(sizeof(Node));
-    if(temp==NULL){
-        printf("overflow\n");
-    }
-    else{
+    if (temp == NULL) {
+        printf("Overflow\n");
+    } else {
         temp->info = v;
         temp->next = NULL;
-        if(*f==NULL){
-            *f=temp;
-            *r=temp;
-        }
-        else{
-            (*r)->next=temp;
-            *r=temp;
+        if (*f == NULL) {
+            *f = temp;
+            *r = temp;
+        } else {
+            (*r)->next = temp;
+            *r = temp;
         }
     }
 }
 
-int delete1(Node *f,Node *r) {
-    if (head == NULL) {
+int delete1(Node** f, Node** r) {
+    if (*f == NULL) {
         printf("List is empty\n");
         return -1;
     } else {
+        Node* temp = *f;
         int x = temp->info;
-        if((*f)->next==NULL){
-                *f=NULL;
-                *r=NULL;
-                return x;
+        *f = (*f)->next;
+        free(temp);
+        if (*f == NULL) {
+            *r = NULL; // Update rear when the last element is deleted
         }
-        else{
-            node *temp=(*f)->node;
-            (*f)->next=NULL;
-            *f=temp;
-            return x;
-        }
+        return x;
     }
 }
 
-void display(Node *f,Node *r) {
-    while(f!=r){
-        printf("%d ",f->info);
-        f=f->next;
+void display(Node* f, Node* r) {
+    while (f != NULL) {
+        printf("%d ", f->info);
+        f = f->next;
     }
-    printf("%d",f->info);
+    printf("\n");
 }
 
 int main() {
-    node *f=NULL;
-    node *r=NULL;
+    Node* f = NULL; // Front
+    Node* r = NULL; // Rear
     int ch, v, x;
 
     while (1) {
@@ -70,18 +63,16 @@ int main() {
             case 1:
                 printf("Enter the value: ");
                 scanf("%d", &v);
-                insert(&f,&r,v);
+                insert(&f, &r, v);
                 break;
             case 2:
-                if (head != NULL) {
-                    x = delete1(&f,&r);
+                x = delete1(&f, &r);
+                if (x != -1) {
                     printf("Deleted element is: %d\n", x);
-                } else {
-                    printf("List is empty, nothing to delete\n");
                 }
                 break;
             case 3:
-                display(f,r);
+                display(f, r);
                 break;
             case 4:
                 exit(0);

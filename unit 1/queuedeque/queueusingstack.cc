@@ -61,8 +61,14 @@ int main() {
     MyQueue q;
     cout << "Enqueuing 1, 2, and 3 into the queue:" << endl;
     q.push(1);
+    q.display();
+
     q.push(2);
+    q.display();
+
     q.push(3);
+    q.display();
+
 
     cout << "Queue elements: ";
     q.display();

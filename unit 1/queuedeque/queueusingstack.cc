@@ -1,5 +1,4 @@
-#include <iostream>
-#include <stack>
+#include<bits/stdc++.h>
 //queue ->fifo
 using namespace std;
 

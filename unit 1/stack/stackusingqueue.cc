@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+//stack->filo
 class MyStack {
 public:
     queue<int> q;
@@ -31,6 +31,16 @@ public:
     bool empty() {
         return q.empty();
     }
+
+    void display() {
+        queue<int> temp = q;
+        cout << "Stack: ";
+        while (!temp.empty()) {
+            cout << temp.front() << " ";
+            temp.pop();
+        }
+        cout << endl;
+    }
 };
 
 int main() {
@@ -39,6 +49,8 @@ int main() {
     s.push(1);
     s.push(2);
     s.push(3);
+
+    s.display(); // Display the stack
 
     cout << "Top element: " << s.top() << endl; // Output: Top element: 3
 

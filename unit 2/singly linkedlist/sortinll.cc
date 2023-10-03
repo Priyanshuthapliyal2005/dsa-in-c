@@ -1,125 +1,48 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
-
-// Definition for singly-linked list.
-struct ListNode {
-    int val;
-    ListNode* next;
-    ListNode(int x) : val(x), next(nullptr) {}
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
 };
-
-class Solution {
-public:
-    ListNode* sortList(ListNode* head) {
-        if (!head || !head->next) {
-            return head;  // Already sorted or empty list
-        }
-
-        // Find the maximum number of digits in the list
-        int maxDigits = getMaxDigits(head);
-
-        // Perform counting sort for each digit place
-        for (int i = 1; i <= maxDigits; ++i) {
-            head = countingSort(head, i);
-        }
-
-        return head;
-    }
-
-private:
-    int getMaxDigits(ListNode* head) {
-        int maxDigits = 0;
-        while (head) {
-            int numDigits = 0;
-            int val = abs(head->val);
-            while (val > 0) {
-                val /= 10;
-                ++numDigits;
-            }
-            maxDigits = max(maxDigits, numDigits);
-            head = head->next;
-        }
-        return maxDigits;
-    }
-
-    ListNode* countingSort(ListNode* head, int exp) {
-        const int base = 10;  // Assuming decimal numbers
-
-        vector<ListNode*> buckets(base, nullptr);
-        vector<ListNode*> ends(base, nullptr);
-
-        while (head) {
-            int digit = getDigit(head->val, exp);
-            if (!buckets[digit]) {
-                buckets[digit] = ends[digit] = head;
-            } else {
-                ends[digit]->next = head;
-                ends[digit] = head;
-            }
-            head = head->next;
-        }
-
-        ListNode* newHead = nullptr;
-        ListNode* tail = nullptr;
-
-        for (int i = 0; i < base; ++i) {
-            if (buckets[i]) {
-                if (!newHead) {
-                    newHead = buckets[i];
-                    tail = ends[i];
-                } else {
-                    tail->next = buckets[i];
-                    tail = ends[i];
-                }
-            }
-        }
-
-        if (tail) {
-            tail->next = nullptr;
-        }
-
-        return newHead;
-    }
-
-    int getDigit(int value, int exp) {
-        while (exp > 1) {
-            value /= 10;
-            --exp;
-        }
-        return value % 10;
-    }
-};
-
-// Helper function to print the linked list
-void printList(ListNode* head) {
-    while (head) {
-        cout << head->val << " ";
-        head = head->next;
-    }
-    cout << endl;
+typedef struct Node node;
+node* create(int data){
+    node* newnode=(node*)malloc(sizeof(node));
+    newnode->data=data;
+    newnode->next=NULL;
+    return newnode;
 }
-
-int main() {
-    // Example usage
-    ListNode* head = new ListNode(170);
-    head->next = new ListNode(45);
-    head->next->next = new ListNode(75);
-    head->next->next->next = new ListNode(90);
-    head->next->next->next->next = new ListNode(802);
-    head->next->next->next->next->next = new ListNode(24);
-    head->next->next->next->next->next->next = new ListNode(2);
-    head->next->next->next->next->next->next->next = new ListNode(66);
-
-    cout<<"before sorting algorithm:"<<endl;
-    printList(head);
-    Solution solution;
-    ListNode* sortedList = solution.sortList(head);
-    cout<<"after sorting algorithm:"<<endl;
-    // Print the sorted linked list
-    printList(sortedList);
-
+void insert(node** head,node* newnode){
+    node* curr=*head;
+    if(*head==NULL||(*head)->data>=newnode->data){
+        newnode->next=*head;
+        *head=newnode;
+    }
+    else{
+        
+        while(curr->next!=NULL&&curr->next->data<newnode->data){
+            curr=curr->next;
+        }
+        newnode->next=curr->next;
+        curr->next=newnode;
+    }
+}
+void display(node* head){
+    node* temp=head;
+    while(head!=NULL){
+        printf("%d",temp->data);
+        if(temp&&temp->next){
+            printf("->");
+        }
+        temp=temp->next;
+    }
+    printf("NULL\n");
+}
+int main(){
+    node* head=NULL;
+    insert(&head,create(6));
+    insert(&head,create(3));
+    insert(&head,create(8));
+    insert(&head,create(0));
+    display(head);
     return 0;
 }

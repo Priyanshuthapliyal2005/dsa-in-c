@@ -64,6 +64,36 @@ void insertinbtw(node** head, int pos, int val) {
         }
     }
 }
+void deletelist(node** head, int key) {
+    node* curr = *head;
+
+    // Check if the list is empty
+    if (curr == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    // Check if the key is in the first node
+    if (curr->val == key) {
+        *head = curr->next;
+        free(curr);
+        return;
+    }
+
+    // Iterate through the list to find the node with the key
+    while (curr->next != NULL) {
+        if (curr->next->val == key) {
+            node* temp = curr->next;  // Store the node to be deleted
+            curr->next = temp->next;  // Update the next pointer of the current node
+            free(temp);               // Free the node containing the key
+            return;
+        }
+        curr = curr->next;
+    }
+
+    // Key not found in the list
+    printf("Key not found in the list\n");
+}
 
 
 void display(node* head) {
@@ -93,6 +123,7 @@ int main() {
     insertAtBeginning(&head, 1);
     insertatend(&head,6);
     insertinbtw(&head,3,3);
+    deletelist(&head,1);
     display(head);
 
     // Don't forget to free the allocated memory

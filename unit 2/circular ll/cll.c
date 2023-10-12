@@ -61,6 +61,68 @@ void insertinbtw(node** head, node** last, int post, int val) {
     }
 }
 
+void deletenode(node** head, node** last, int key) {
+    if (*head == NULL) {
+        return;
+    } else {
+        node* curr = *head;
+        node* prev = NULL;
+        
+        while (curr->val != key) {
+            if (curr->next == *head) {
+                printf("Given node not found in the list\n");
+                return;
+            }
+            prev = curr;
+            curr = curr->next;
+        }
+
+        if (curr == *head) {
+            prev = *head;
+            while (prev->next != *head) {
+                prev = prev->next;
+            }
+            *head = curr->next;
+            prev->next = *head;
+
+            // Update last if the last node is deleted
+            if (curr == *last) {
+                *last = prev;
+            }
+            
+            free(curr);
+        } else if (curr->next == *head && curr == *head) {
+            prev->next = *head;
+            free(curr);
+        } else {
+            prev->next = curr->next;
+
+            // Update last if the last node is deleted
+            if (curr == *last) {
+                *last = prev;
+            }
+
+            free(curr);
+        }
+    }
+}
+
+void freeList(node** head) {
+    if (*head == NULL) {
+        return;
+    }
+
+    node* current = *head;
+    node* next;
+
+    do {
+        next = current->next;
+        free(current);
+        current = next;
+    } while (current != *head);
+
+    *head = NULL;  // Reset the head to NULL after freeing all nodes
+}
 
 void display(node* head, node* last) {
     node* curr = head;
@@ -87,6 +149,11 @@ int main() {
     insertinbtw(&head,&last,7,8);
     insertinbtw(&head,&last,3,8);
     display(head, last);
-
+    printf("\n");
+    deletenode(&head,&last,8);
+    deletenode(&head,&last,8);
+    deletenode(&head,&last,8);
+    display(head,last);
+    freeList(&head);
     return 0;
 }

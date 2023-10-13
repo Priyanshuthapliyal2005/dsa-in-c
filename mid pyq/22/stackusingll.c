@@ -8,7 +8,7 @@ typedef struct node node;
 void stackinsert(node** head,int val){
     node* newnode=(node*)malloc(sizeof(node));
     newnode->val=val;
-    newnode->next=*head;
+    newnode->next=NULL;
     if(*head){
         newnode->next=*head;
     }

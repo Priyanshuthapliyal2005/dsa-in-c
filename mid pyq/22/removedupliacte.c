@@ -27,7 +27,7 @@ void stackpopduplicate(node** head) {
     }
 }
 void display(node* head){
-    printf("Elements in stack are:\n");
+    printf("Element's in stack are:\n");
     node* curr=head;
     while(curr!=NULL){
         printf("%d\n",curr->val);

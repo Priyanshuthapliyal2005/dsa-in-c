@@ -16,13 +16,13 @@ struct node* createNode(int data) {
     return newNode;
 }
 
-void printTreeInOrder(struct node* root) {
+void printTreeInorder(struct node* root) {
     if (root == NULL) {
         return;
     }
     printf("%d ", root->data);
-    printTreeInOrder(root->left);
-    printTreeInOrder(root->right);
+    printTreeInorder(root->left);
+    printTreeInorder(root->right);
 }
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
     root->left = createNode(2);
     root->right = createNode(3);
     root->left->left = createNode(4);
-    printf("Nodes in the tree: \n");
-    printTreeInOrder(root);
+    printf("Nodes in the tree in inorder traversal: \n");
+    printTreeInorder(root);
     return 0;
 }

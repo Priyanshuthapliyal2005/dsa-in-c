@@ -1,39 +1,39 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct node{
+struct Node{
     int val;
-    struct node* next;
+    struct Node* next;
 };
-typedef struct node node;
-void queueinsert(node** head, int val) {
-    node* newnode = (node*)malloc(sizeof(node));
-    newnode->val = val;
-    newnode->next = NULL;
+typedef struct Node Node;
+void queueinsert(Node** head, int val) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->val = val;
+    newNode->next = NULL;
 
     if (*head == NULL) {
-        *head = newnode;
+        *head = newNode;
     } else {
-        node* curr = *head;
+        Node* curr = *head;
         while (curr->next != NULL) {
             curr = curr->next;
         }
-        curr->next = newnode;
+        curr->next = newNode;
     }
 }
 
-void queuepop(node** head) {
+void queuepop(Node** head) {
     if (*head == NULL) {
         printf("Queue is empty, cannot pop.\n");
         return;
     }
-    node* curr=*head;
+    Node* curr=*head;
     *head=curr->next;
     free(curr);
 }
 
-void display(node* head){
+void display(Node* head){
     printf("elements in queue are:\n");
-    node* curr=head;
+    Node* curr=head;
     while(curr!=NULL){
         printf("%d\n",curr->val);
         curr=curr->next;
@@ -42,7 +42,7 @@ void display(node* head){
 }
 
 int main(){
-    node* head=NULL;
+    Node* head=NULL;
     queueinsert(&head,1);
     queueinsert(&head,2);
     queueinsert(&head,3);

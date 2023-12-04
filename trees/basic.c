@@ -1,38 +1,41 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct node{
+typedef struct node {
     int val;
     struct node* left;
     struct node* right;
-}node;
+} node;
 
-node* createNode(int val){
-    node* newNode=(node*)malloc(sizeof(node*));
-    newNode->val=val;
-    newNode->left=NULL;
-    newNode->right=NULL;
+node* createNode(int val) {
+    node* newNode = (node*)malloc(sizeof(node));
+    newNode->val = val;
+    newNode->left = NULL;
+    newNode->right = NULL;
     return newNode;
 }
 
-node* buildTree(node* root){
+node* buildTree() {
     int val;
-    printf("Enter The Value :");
-    scanf("%d",&val);
-    root=createNode(val);
-    if(val==-1){
-        return;
-    }
-    printf("Enter value for inserting in left of %d:",val);
-    root->left=buildTree(root->left);
+    printf("Enter The Value (or -1 to end): ");
+    scanf("%d", &val);
 
-    printf("Enter value for inserting in right of %d:",val);
-    root->right=buildTree(root->right);
+    if (val == -1) {
+        return NULL;
+    }
+
+    node* root = createNode(val);
+
+    printf("For inserting in left of %d ", val);
+    root->left = buildTree();
+
+    printf("For inserting in right of %d ", val);
+    root->right = buildTree();
 
     return root;
 }
 
-void preorderTraversal(node* root){
+void preorderTraversal(node* root) {
     if (root == NULL) {
         return;
     }
@@ -41,8 +44,10 @@ void preorderTraversal(node* root){
     preorderTraversal(root->right);
 }
 
-int main(){
-    node* root;
-    buildTree(root);
+int main() {
+    node* root = buildTree();
+    printf("Preorder Traversal: ");
     preorderTraversal(root);
+
+    return 0;
 }

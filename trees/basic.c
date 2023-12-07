@@ -43,11 +43,51 @@ void preorderTraversal(node* root) {
     preorderTraversal(root->left);
     preorderTraversal(root->right);
 }
+void inorderTraversal(node* root) {
+    if (root == NULL) {
+        return;
+    }
+    inorderTraversal(root->left);
+    printf("%d ", root->val);
+    inorderTraversal(root->right);
+}
+void PostorderTraversal(node* root) {
+    if (root == NULL) {
+        return;
+    }
+    PostorderTraversal(root->right);
+    PostorderTraversal(root->left);
+    printf("%d ", root->val);
+}
+void print(node* root){
+    if (root == NULL) {
+        return;
+    }
+    int ch;
+    do{
+        printf("\n1.Preorder Traversal\n2.Postorder Traversal\n3.Inorder Traversal\n4.Exit\n");
+        scanf("%d",&ch);
+    switch(ch){
+
+        case 1:
+            preorderTraversal(root);
+            break;
+        case 2:
+            PostorderTraversal(root);
+            break;
+        case 3:
+            inorderTraversal(root);
+            break;
+        case 4:
+            break;
+        default:
+            break;
+    }
+    }while(ch!=4);
+}
 
 int main() {
     node* root = buildTree();
-    printf("Preorder Traversal: ");
-    preorderTraversal(root);
-
+    print(root);
     return 0;
 }

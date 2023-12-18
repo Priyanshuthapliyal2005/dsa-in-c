@@ -73,6 +73,7 @@ node* removeunsort(node** root) {
     return *root;
 }
 
+
 void display(node* root) {
     node* curr = root;
     while (curr != NULL) {
@@ -84,11 +85,6 @@ void display(node* root) {
 
 int main() {
     node* root = NULL;
-    insertbtw(&root, 4, 1);
-    insertbtw(&root, 5, 2);
-    insertbtw(&root, 8, 3);
-    insertbtw(&root, 4, 4);
-    insertbtw(&root, 8, 5);
     // insertend(&root, 1);
     // insertend(&root, 2);
     // insertend(&root, 3);
@@ -96,13 +92,22 @@ int main() {
     // insertend(&root, 3);
     // insertend(&root, 5);
     // insertend(&root, 5);
+    insertbtw(&root, 4, 1);
+    insertbtw(&root, 5, 2);
+    insertbtw(&root, 8, 3);
+    insertbtw(&root, 4, 4);
+    insertbtw(&root, 8, 5);
+    insertbtw(&root, 8, 6);
+
     printf("Original List: ");
     display(root);
 
-    root = removeunsort(&root);
 
-    printf("List after removing duplicates: ");
+    printf("\nList after removing duplicates: ");
+    root = removeunsort(&root);
     display(root);
+
+    return 0;
 
     return 0;
 }

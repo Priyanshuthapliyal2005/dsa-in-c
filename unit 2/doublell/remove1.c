@@ -7,53 +7,54 @@ typedef struct node {
     struct node* prev;
 } node;
 
-node* insertend(node** root,int val){
-    node* tail=*root;
-    while(tail->next!=NULL){
-        tail=tail->next;
+node* insertend(node** root, int val) {
+    node* tail = *root;
+    while (tail != NULL && tail->next != NULL) {
+        tail = tail->next;
     }
-    node* newnode=(node*)malloc(sizeof(node));
-    newnode->val=val;
-    newnode->next=NULL;
-    if(*root==NULL){
-        *root=newnode;
-    }    
-    else{
-        tail->next=newnode;
-        newnode->prev=tail;
+    node* newnode = (node*)malloc(sizeof(node));
+    newnode->val = val;
+    newnode->next = NULL;
+    if (*root == NULL) {
+        *root = newnode;
+    } else {
+        tail->next = newnode;
+        newnode->prev = tail;
     }
 }
 
-node* removeunsort(node** root){
-    node* curr=*root;
-    while(curr->next!=NULL){
-        node* fwd=curr->next;
-        while(fwd!=NULL && fwd->next!=NULL){
-            if(curr->val==fwd->val){
-                node* temp=fwd;
-                fwd->prev->next=fwd->next;
-                fwd->next->prev=fwd->prev;
-                fwd=fwd->next;
+node* removeunsort(node** root) {
+    node* curr = *root;
+    while (curr != NULL && curr->next != NULL) {
+        node* fwd = curr->next;
+        while (fwd != NULL && fwd->next != NULL) {
+            if (curr->val == fwd->val) {
+                node* temp = fwd;
+                fwd->prev->next = fwd->next;
+                if (fwd->next != NULL) {
+                    fwd->next->prev = fwd->prev;
+                }
+                fwd = fwd->next;
                 free(temp);
-            }else{
-                fwd=fwd->next;
+            } else {
+                fwd = fwd->next;
             }
         }
-        curr=curr->next;
+        curr = curr->next;
     }
     return *root;
 }
 
-void display(node* root){
-    node* curr=root;
-    while(curr!=NULL){
-        printf("%d ",curr->val);
-        curr=curr->next;
+void display(node* root) {
+    node* curr = root;
+    while (curr != NULL) {
+        printf("%d ", curr->val);
+        curr = curr->next;
     }
     printf("\n");
 }
 
-int main(){
+int main() {
     node* root = NULL;
     insertend(&root, 1);
     insertend(&root, 2);
@@ -61,9 +62,11 @@ int main(){
     insertend(&root, 2);
     insertend(&root, 3);
     insertend(&root, 5);
+
     printf("Original List: ");
     display(root);
-    root=removeunsort(&root);
+
+    root = removeunsort(&root);
 
     printf("List after removing duplicates: ");
     display(root);

@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node {
     int val;
@@ -23,11 +23,39 @@ node* insertend(node** root, int val) {
     }
 }
 
+node* insertbtw(node** root, int val, int pos) {
+    node* newnode = (node*)malloc(sizeof(node));
+    newnode->val = val;
+    newnode->next = NULL;
+    if (pos == 1) {
+        newnode->next = *root;
+        if (*root != NULL) {
+            (*root)->prev = newnode;
+        }
+        *root = newnode;
+    } else {
+        node* curr = *root;
+        int i = 1;
+        while (i < pos - 1 && curr != NULL) {
+            curr = curr->next;
+            i++;
+        }
+        if (curr != NULL) {
+            newnode->next = curr->next;
+            if (curr->next != NULL) {
+                curr->next->prev = newnode;
+            }
+            curr->next = newnode;
+            newnode->prev = curr;
+        }
+    }
+}
+
 node* removeunsort(node** root) {
     node* curr = *root;
-    while (curr != NULL && curr->next != NULL) {
+    while (curr != NULL ) {
         node* fwd = curr->next;
-        while (fwd != NULL && fwd->next != NULL) {
+        while (fwd != NULL ) {
             if (curr->val == fwd->val) {
                 node* temp = fwd;
                 fwd->prev->next = fwd->next;
@@ -56,13 +84,18 @@ void display(node* root) {
 
 int main() {
     node* root = NULL;
-    insertend(&root, 1);
-    insertend(&root, 2);
-    insertend(&root, 3);
-    insertend(&root, 2);
-    insertend(&root, 3);
-    insertend(&root, 5);
-
+    insertbtw(&root, 4, 1);
+    insertbtw(&root, 5, 2);
+    insertbtw(&root, 8, 3);
+    insertbtw(&root, 4, 4);
+    insertbtw(&root, 8, 5);
+    // insertend(&root, 1);
+    // insertend(&root, 2);
+    // insertend(&root, 3);
+    // insertend(&root, 2);
+    // insertend(&root, 3);
+    // insertend(&root, 5);
+    // insertend(&root, 5);
     printf("Original List: ");
     display(root);
 

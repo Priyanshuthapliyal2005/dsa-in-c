@@ -113,6 +113,51 @@ void postOrderTraversal(treenode* root) {
     }
 }
 
+int isPalindrome(int num) {
+    int originalNum = num;
+    int reverseNum = 0;
+    
+    while (num > 0) {
+        int digit = num % 10;
+        reverseNum = reverseNum * 10 + digit;
+        num /= 10;
+    }
+
+    return (originalNum == reverseNum);
+}
+
+int countPalindromeNodes(treenode* root) {
+    if (root == NULL) {
+        return 0;
+    }
+
+    int count = 0;
+
+    if (isPalindrome(root->data)) {
+        count++;
+    }
+
+    count += countPalindromeNodes(root->left);
+    count += countPalindromeNodes(root->right);
+
+    return count;
+}
+
+
+int countk(treenode* root, int k) {
+    if (root == NULL) {
+        return 0;
+    }
+
+    int count = countk(root->left, k) + countk(root->right, k);
+
+    if (root->data % k == 0) {
+        count++;
+    }
+
+    return count;
+}
+
 int main() {
     treenode* root = NULL;
     int n;
@@ -137,6 +182,11 @@ int main() {
     postOrderTraversal(root);
     printf("\n");
 
+    int k;
+    printf("enter the valuse of k for which you want to count nodes of multiple: ");
+    scanf("%d",&k);
+    printf("ans :%d",countk(root,k));
+
     printf("Enter the value to be searched: ");
     scanf("%d", &x);
     treenode* temp = searchnode(root, x);
@@ -157,7 +207,7 @@ int main() {
     printf("In-order traversal after deletion: ");
     inOrderTraversal(root);
     printf("\n");
-
+    printf("number of palindrome nodes: %d",countPalindromeNodes(root));
     // Free the memory used by the tree
     free(root);
 

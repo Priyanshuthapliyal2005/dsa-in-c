@@ -191,9 +191,9 @@ int main() {
     scanf("%d", &x);
     treenode* temp = searchnode(root, x);
     if (temp == NULL) {
-        printf("Not found\n");
+        printf("%d Not found in BST\n",x);
     } else {
-        printf("Found\n");
+        printf(" %d Found in BST\n",x);
     }
 
     printf("Minimum value: %d\n", findmin(root)->data);

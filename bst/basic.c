@@ -183,7 +183,7 @@ int main() {
     printf("\n");
 
     int k;
-    printf("enter the valuse of k for which you want to count nodes of multiple: ");
+    printf("Enter the valuse of k for which you want to count nodes of multiple: ");
     scanf("%d",&k);
     printf("ans :%d",countk(root,k));
 

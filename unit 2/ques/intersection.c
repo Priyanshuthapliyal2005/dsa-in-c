@@ -49,7 +49,7 @@ node* findIntersection(node* head1, node* head2) {
 }
 
 // Function to print the linked list
-void printList(node* head) {
+void displayList(node* head) {
     while (head != NULL) {
         printf("%d ", head->data);
         head = head->next;
@@ -95,7 +95,7 @@ int main() {
     // Find and print the intersection of the linked lists
     node* intersectionList = findIntersection(head1, head2);
     printf("Intersection of the linked lists: ");
-    printList(intersectionList);
+    displayList(intersectionList);
 
     // Free memory
     freeList(head1);

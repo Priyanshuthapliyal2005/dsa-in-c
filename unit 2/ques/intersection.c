@@ -8,7 +8,9 @@ typedef struct node {
 
 // Function to insert a node at the end of a linked list
 node* insertEnd(node* head, int val) {
+
     node* newNode = (node*)malloc(sizeof(node));
+    
     newNode->data = val;
     newNode->next = NULL;
     

@@ -9,6 +9,7 @@ struct Node {
 typedef struct Node node;
 
 void insertAtBeginning(node** head, node** last, int val) {
+    
     node* newNode = (node*)malloc(sizeof(node));
     newNode->val = val;
     newNode->next = (*head);

@@ -25,6 +25,7 @@ void insertAtBeginning(node** head, node** last, int val) {
 }
 
 void insertatend(node** head,node** last,int val){
+    
     node* newNode = (node*)malloc(sizeof(node));
     newNode->val = val;
     newNode->next = (*last)->next;

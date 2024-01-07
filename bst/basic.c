@@ -8,7 +8,6 @@ typedef struct tree {
 } treenode;
 
 treenode* create(int value) {
-
     treenode* newnode = (treenode*)malloc(sizeof(treenode));
     newnode->data = value;
     newnode->left = NULL;
@@ -17,7 +16,6 @@ treenode* create(int value) {
 }
 
 treenode* insert(treenode* root, int value) {
-    
     if (root == NULL) {
         return create(value);
     }

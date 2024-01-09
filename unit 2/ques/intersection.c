@@ -77,6 +77,7 @@ int main() {
     // Input for the first linked list
     printf("Enter the number of nodes in the first linked list: ");
     scanf("%d", &n1);
+    
     printf("Enter sorted values for the first linked list:\n");
     for (int i = 0; i < n1; i++) {
         int val;
